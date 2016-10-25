@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 ext {
-    bintrayRepo = 'maven'
+    bintrayRepo = 'quickstart'
     bintrayName = 'core'
 
     publishedGroupId = 'com.dadino.quickstart'
@@ -10,7 +10,7 @@ ext {
     libraryDescription = 'Basic toolbox to quickly start coding'
 
     siteUrl = 'https://github.com/dadino/basictoolbox'
-    gitUrl = 'https://github.com/dadino/basictoolbox'
+    gitUrl = 'https://github.com/dadino/basictoolbox.git'
 
     libraryVersion = '0.0.1'
 
@@ -102,5 +102,5 @@ retrolambda {
 }
 
 // Place it at the end of the file
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'
