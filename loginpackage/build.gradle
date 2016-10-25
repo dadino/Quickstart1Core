@@ -1,4 +1,28 @@
 apply plugin: 'com.android.library'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'login'
+
+    publishedGroupId = 'com.dadino.quickstart'
+    libraryName = 'QuickStartLogin'
+    artifact = 'login'
+
+    libraryDescription = 'Basic ui and classes for login with token'
+
+    siteUrl = 'https://github.com/dadino/basictoolbox'
+    gitUrl = 'https://github.com/dadino/basictoolbox'
+
+    libraryVersion = '0.0.1'
+
+    developerId = 'dadino'
+    developerName = 'David Corsalini'
+    developerEmail = 'corsalini.david@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -10,7 +34,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/BasicToolbox.iml" filepath="$PROJECT_DIR$/BasicToolbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/loginpackage/loginpackage.iml" filepath="$PROJECT_DIR$/loginpackage/loginpackage.iml" />
     </modules>
   </component>
 </project>
