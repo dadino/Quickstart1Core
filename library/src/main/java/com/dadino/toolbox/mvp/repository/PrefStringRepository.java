@@ -1,0 +1,60 @@
+package com.dadino.toolbox.mvp.repository;
+
+import android.content.Context;
+
+import com.dadino.toolbox.interfaces.IStringRepository;
+import com.dadino.toolbox.utils.Logs;
+
+import rx.Observable;
+import rx.Single;
+import rx.subjects.BehaviorSubject;
+
+public abstract class PrefStringRepository extends PrefRepository implements IStringRepository {
+
+	private BehaviorSubject<String> subject;
+
+	public PrefStringRepository(Context context) {
+		super(context);
+	}
+
+	@Override
+	protected String listenOn() {
+		return getKey();
+	}
+
+	@Override
+	protected void onPrefChanged() {
+		if (subject != null) subject.onNext(getPref());
+	}
+
+	@Override
+	public Observable<String> retrieve() {
+		Logs.model("Retrieving pref: " + getKey());
+		if (subject == null) {
+			subject = BehaviorSubject.create(getPref());
+			subject.onNext(getPref());
+		}
+		return subject;
+	}
+
+	@Override
+	public Single<Boolean> create(String string) {
+		return Single.just(editor().putString(getKey(), string)
+		                           .commit());
+	}
+
+	@Override
+	public Single<Boolean> delete() {
+		return Single.just(editor().remove(getKey())
+		                           .commit());
+	}
+
+	@Override
+	public Single<Boolean> update(String string) {
+		return create(string);
+	}
+
+	private String getPref() {return pref().getString(getKey(), getDefault());}
+
+	protected abstract String getDefault();
+}
