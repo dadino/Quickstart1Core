@@ -1,6 +1,31 @@
 apply plugin: 'com.android.library'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'core'
+
+    publishedGroupId = 'com.dadino.quickstart'
+    libraryName = 'QuickStartCore'
+    artifact = 'core'
+
+    libraryDescription = 'Basic toolbox to quickly start coding'
+
+    siteUrl = 'https://github.com/dadino/basictoolbox'
+    gitUrl = 'https://github.com/dadino/basictoolbox'
+
+    libraryVersion = '0.0.1'
+
+    developerId = 'dadino'
+    developerName = 'David Corsalini'
+    developerEmail = 'corsalini.david@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+
 
 android {
     compileSdkVersion 25
@@ -10,7 +35,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -59,15 +84,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
-    //Google
-    compile 'com.google.android.gms:play-services-auth:9.6.1'
-    compile 'com.google.android.gms:play-services-gcm:9.6.1'
-
-    //Requery
-    compile 'io.requery:requery:1.0.0'
-    compile 'io.requery:requery-android:1.0.0' // for android
-    apt 'io.requery:requery-processor:1.0.0'   // use an APT plugin
-
     //RxJava
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
@@ -84,3 +100,7 @@ retrolambda {
     jdk JAVA8_HOME
     javaVersion JavaVersion.VERSION_1_7
 }
+
+// Place it at the end of the file
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
