@@ -1,4 +1,4 @@
-<manifest package="com.dadino.quickstart"
+<manifest package="com.dadino.quickstart.core"
 		  xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<application

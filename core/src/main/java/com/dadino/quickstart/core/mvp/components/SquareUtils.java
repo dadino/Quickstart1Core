@@ -3,7 +3,7 @@ package com.dadino.quickstart.core.mvp.components;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import com.dadino.quickstart.BuildConfig;
+import com.dadino.quickstart.core.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

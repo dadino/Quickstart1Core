@@ -3,7 +3,7 @@ package com.dadino.quickstart.core.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.dadino.quickstart.BuildConfig;
+import com.dadino.quickstart.core.BuildConfig;
 
 public class Logs {
 

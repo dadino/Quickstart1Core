@@ -56,21 +56,29 @@ public abstract class BaseListAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> ext
 	}
 
 	@Override
-	public abstract long getItemId(int position);
+	public long getItemId(int position) {
+		return getItem(position) != null ? getItemIdSafe(position) : -1;
+	}
 
 	@Override
 	public int getItemCount() {
 		if (count >= 0) return count;
 		if (items != null) {
-			count = items.size() + getAdditionalItemCount();
+			count = items.size() + getHeadersCount() + getFootersCount();
 			return count;
 		} else {
-			count = getAdditionalItemCount();
+			count = getHeadersCount() + getFootersCount();
 			return count;
 		}
 	}
 
-	public int getAdditionalItemCount() {
+	protected abstract long getItemIdSafe(int position);
+
+	public int getFootersCount() {
+		return 0;
+	}
+
+	public int getHeadersCount() {
 		return 0;
 	}
 
@@ -112,8 +120,12 @@ public abstract class BaseListAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> ext
 		});
 	}
 
-	protected ITEM getItem(int position) {
-		if (position < (getItemCount() - getAdditionalItemCount())) return items.get(position);
+	@Nullable
+	public ITEM getItem(int position) {
+		if (position < getHeadersCount()) return null;
+		final int adjustedPosition = position - getHeadersCount();
+		if (adjustedPosition < (getItemCount() - getHeadersCount() - getFootersCount()))
+			return items.get(adjustedPosition);
 		else return null;
 	}
 
@@ -126,7 +138,7 @@ public abstract class BaseListAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> ext
 	public void setItems(List<ITEM> items) {
 		this.items = items;
 		count = NOT_COUNTED;
-		notifyDataSetChanged();
+		//notifyDataSetChanged();
 	}
 
 	public interface ClickListener<ITEM> {

@@ -1,3 +1,6 @@
 <resources>
 	<string name="app_name">Library</string>
+
+	<string name="navigation_drawer_open">Apri il menù laterale</string>
+	<string name="navigation_drawer_close">Chiudi il menù laterale</string>
 </resources>
