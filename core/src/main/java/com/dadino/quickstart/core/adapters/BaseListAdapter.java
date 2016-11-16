@@ -138,7 +138,7 @@ public abstract class BaseListAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> ext
 	public void setItems(List<ITEM> items) {
 		this.items = items;
 		count = NOT_COUNTED;
-		//notifyDataSetChanged();
+		notifyDataSetChanged();
 	}
 
 	public interface ClickListener<ITEM> {

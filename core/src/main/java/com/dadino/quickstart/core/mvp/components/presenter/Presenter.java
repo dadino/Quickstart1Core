@@ -37,7 +37,7 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 	}
 
 	public void loadIfNeeded() {
-		if (mItem == null && !mLoading) load();
+		if (needsLoad()) load();
 	}
 
 	public void onDestroy() {
@@ -53,6 +53,10 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 
 	public void removeView(MvpView<E> view) {
 		mMvpViews.remove(view);
+	}
+
+	public boolean needsLoad() {
+		return (mItem == null && !mLoading);
 	}
 
 	public void load(boolean userInitiatedLoad) {

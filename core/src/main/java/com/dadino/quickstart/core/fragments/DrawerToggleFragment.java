@@ -36,7 +36,7 @@ public abstract class DrawerToggleFragment extends BaseFragment {
 		super.onDetach();
 	}
 
-	abstract Toolbar toolbar();
+	public abstract Toolbar toolbar();
 
 	private void setupDrawerToggle(Context context) {
 		mShouldSetupDrawerToggle = true;
@@ -75,7 +75,7 @@ public abstract class DrawerToggleFragment extends BaseFragment {
 		}
 	}
 
-	protected abstract int title();
+	public abstract int title();
 
 	private void resetDrawerToggle(Context context) {
 		mShouldSetupDrawerToggle = true;
