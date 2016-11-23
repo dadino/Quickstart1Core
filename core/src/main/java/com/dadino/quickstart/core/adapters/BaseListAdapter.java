@@ -115,7 +115,7 @@ public abstract class BaseListAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> ext
 			} else {
 				// View v at position pos is long-clicked.
 				Logs.ui("Item at pos" + pos + " long clicked!");
-				if (clickListener != null) longClickListener.onLongClicked(v, getItem(pos));
+				if (longClickListener != null) longClickListener.onLongClicked(v, getItem(pos));
 			}
 		});
 	}

@@ -3,45 +3,99 @@ package com.dadino.quickstart.core.mvp.components.presenter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
+import com.dadino.quickstart.core.BaseActivity;
+import com.dadino.quickstart.core.fragments.BaseDialogFragment;
+import com.dadino.quickstart.core.fragments.BaseFragment;
 import com.dadino.quickstart.core.interfaces.IPresenter;
+import com.dadino.quickstart.core.interfaces.SimpleActivityLifecycleListener;
+import com.dadino.quickstart.core.interfaces.SimpleFragmentLifecycleListener;
 import com.dadino.quickstart.core.utils.Logs;
 
 
-public class PresenterManager<T extends IPresenter> implements LoaderManager.LoaderCallbacks<T> {
+public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implements LoaderManager
+		.LoaderCallbacks<PRESENTER> {
 
-	private final PresenterCallback<T> callback;
-	private final PresenterFactory<T>  factory;
-	private final Context              context;
-	private       T                    presenter;
+	private final PresenterCallback<PRESENTER> callback;
+	private final PresenterFactory<PRESENTER>  factory;
+	private final Context                      context;
+	private       PRESENTER                    presenter;
+	private       MvpView<ITEM>                mvpView;
 
-	public PresenterManager(Context context, PresenterFactory<T> factory,
-	                        PresenterCallback<T> callback) {
+	public PresenterManager(Context context, PresenterFactory<PRESENTER> factory,
+	                        PresenterCallback<PRESENTER> callback, MvpView<ITEM> view) {
 		this.context = context.getApplicationContext();
 		this.callback = callback;
 		this.factory = factory;
+		this.mvpView = view;
 	}
 
-	public PresenterManager(Fragment fragment, PresenterFactory<T> factory,
-	                        PresenterCallback<T> callback) {
+	public PresenterManager(Fragment fragment, PresenterFactory<PRESENTER> factory,
+	                        PresenterCallback<PRESENTER> callback, MvpView<ITEM> view) {
 		this.context = fragment.getContext()
 		                       .getApplicationContext();
 		this.callback = callback;
 		this.factory = factory;
+		this.mvpView = view;
 	}
 
-	public PresenterManager<T> bindTo(FragmentActivity activity) {
+	public PresenterManager<ITEM, PRESENTER> bindTo(BaseActivity activity) {
 		activity.getSupportLoaderManager()
 		        .initLoader(factory.id(), null, this);
+		activity.addActivityLifecycleListener(new SimpleActivityLifecycleListener() {
+			@Override
+			public void onStart() {
+				super.onStart();
+				if (presenter != null) presenter.addView(mvpView);
+			}
+
+			@Override
+			public void onStop() {
+				super.onStop();
+				if (presenter != null) presenter.removeView(mvpView);
+			}
+		});
 		return this;
 	}
 
-	public PresenterManager<T> bindTo(Fragment activity) {
-		activity.getLoaderManager()
+	public PresenterManager<ITEM, PRESENTER> bindTo(BaseFragment fragment) {
+		fragment.getLoaderManager()
 		        .initLoader(factory.id(), null, this);
+		fragment.addLifecycleListener(new SimpleFragmentLifecycleListener() {
+			@Override
+			public void onStart() {
+				super.onStart();
+				if (presenter != null) presenter.addView(mvpView);
+			}
+
+			@Override
+			public void onStop() {
+				super.onStop();
+				if (presenter != null) presenter.removeView(mvpView);
+			}
+		});
+		return this;
+	}
+
+	public PresenterManager<ITEM, PRESENTER> bindTo(BaseDialogFragment fragment, MvpView view) {
+		this.mvpView = view;
+		fragment.getLoaderManager()
+		        .initLoader(factory.id(), null, this);
+		fragment.addLifecycleListener(new SimpleFragmentLifecycleListener() {
+			@Override
+			public void onStart() {
+				super.onStart();
+				if (presenter != null) presenter.addView(mvpView);
+			}
+
+			@Override
+			public void onStop() {
+				super.onStop();
+				if (presenter != null) presenter.removeView(mvpView);
+			}
+		});
 		return this;
 	}
 
@@ -52,7 +106,7 @@ public class PresenterManager<T extends IPresenter> implements LoaderManager.Loa
 	}
 
 	@Override
-	public void onLoadFinished(Loader<T> loader, T presenter) {
+	public void onLoadFinished(Loader<PRESENTER> loader, PRESENTER presenter) {
 		this.presenter = presenter;
 		if (callback != null) callback.onPresenterLoaded(presenter);
 	}
@@ -62,7 +116,7 @@ public class PresenterManager<T extends IPresenter> implements LoaderManager.Loa
 		presenter = null;
 	}
 
-	public T get() {
+	public PRESENTER get() {
 		return presenter;
 	}
 
