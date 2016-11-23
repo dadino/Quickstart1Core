@@ -30,6 +30,12 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment impleme
 	}
 
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		initPresenters();
+	}
+
+	@Override
 	public void onStart() {
 		super.onStart();
 		for (ActivityLifecycleListener listener : lifecycleListeners) {
@@ -44,6 +50,8 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment impleme
 			listener.onStop();
 		}
 	}
+
+	protected abstract void initPresenters();
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {

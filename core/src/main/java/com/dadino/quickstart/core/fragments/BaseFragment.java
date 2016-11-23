@@ -1,6 +1,7 @@
 package com.dadino.quickstart.core.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -34,6 +35,12 @@ public abstract class BaseFragment extends Fragment implements ISub {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		initPresenters();
 	}
 
 	@Override
@@ -72,6 +79,8 @@ public abstract class BaseFragment extends Fragment implements ISub {
 			   .watch(this);
 		}
 	}
+
+	protected abstract void initPresenters();
 
 	public void shouldWatchForLeaks(boolean watchForLeaks) {
 		this.mShouldWatchForLeaks = watchForLeaks;
