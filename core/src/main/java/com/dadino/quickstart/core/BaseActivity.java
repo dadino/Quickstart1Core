@@ -54,6 +54,22 @@ public abstract class BaseActivity extends AppCompatActivity implements ISub {
 		   .watch(this);
 	}
 
+	@Override
+	public void onPause() {
+		super.onPause();
+		for (ActivityLifecycleListener listener : lifecycleListeners) {
+			listener.onPause();
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		for (ActivityLifecycleListener listener : lifecycleListeners) {
+			listener.onResume();
+		}
+	}
+
 	public void addSubscription(Subscription subscription) {
 		mSubscriptions.add(subscription);
 	}
@@ -64,14 +80,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ISub {
 	}
 
 	public abstract void initPresenters();
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		for (ActivityLifecycleListener listener : lifecycleListeners) {
-			listener.onResume();
-		}
-	}
 
 	public void addActivityLifecycleListener(ActivityLifecycleListener activityLifecycleListener) {
 		lifecycleListeners.add(activityLifecycleListener);

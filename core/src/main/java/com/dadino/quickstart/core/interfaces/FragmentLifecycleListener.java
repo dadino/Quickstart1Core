@@ -8,4 +8,5 @@ public interface FragmentLifecycleListener {
 	void onCreate();
 	void onDestroy();
 	void onResume();
+	void onPause();
 }

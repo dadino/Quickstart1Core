@@ -1,7 +1,7 @@
 package com.dadino.quickstart.core.interfaces;
 
 
-public class SimpleFragmentLifecycleListener implements ActivityLifecycleListener {
+public class SimpleFragmentLifecycleListener implements FragmentLifecycleListener {
 
 	@Override
 	public void onStart() {
@@ -25,6 +25,11 @@ public class SimpleFragmentLifecycleListener implements ActivityLifecycleListene
 
 	@Override
 	public void onResume() {
+
+	}
+
+	@Override
+	public void onPause() {
 
 	}
 }

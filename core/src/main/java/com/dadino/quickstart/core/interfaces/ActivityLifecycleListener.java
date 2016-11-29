@@ -8,4 +8,5 @@ public interface ActivityLifecycleListener {
 	void onCreate();
 	void onDestroy();
 	void onResume();
+	void onPause();
 }

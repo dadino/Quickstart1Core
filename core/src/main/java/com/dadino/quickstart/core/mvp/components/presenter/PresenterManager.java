@@ -65,14 +65,14 @@ public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implemen
 		        .initLoader(factory.id(), null, this);
 		fragment.addLifecycleListener(new SimpleFragmentLifecycleListener() {
 			@Override
-			public void onStart() {
-				super.onStart();
+			public void onResume() {
+				super.onResume();
 				if (presenter != null) presenter.addView(mvpView);
 			}
 
 			@Override
-			public void onStop() {
-				super.onStop();
+			public void onPause() {
+				super.onPause();
 				if (presenter != null) presenter.removeView(mvpView);
 			}
 		});
@@ -85,14 +85,14 @@ public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implemen
 		        .initLoader(factory.id(), null, this);
 		fragment.addLifecycleListener(new SimpleFragmentLifecycleListener() {
 			@Override
-			public void onStart() {
-				super.onStart();
+			public void onResume() {
+				super.onResume();
 				if (presenter != null) presenter.addView(mvpView);
 			}
 
 			@Override
-			public void onStop() {
-				super.onStop();
+			public void onPause() {
+				super.onPause();
 				if (presenter != null) presenter.removeView(mvpView);
 			}
 		});

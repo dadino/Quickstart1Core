@@ -27,4 +27,9 @@ public class SimpleActivityLifecycleListener implements ActivityLifecycleListene
 	public void onResume() {
 
 	}
+
+	@Override
+	public void onPause() {
+
+	}
 }
