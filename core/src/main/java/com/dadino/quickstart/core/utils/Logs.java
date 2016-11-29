@@ -3,20 +3,18 @@ package com.dadino.quickstart.core.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.dadino.quickstart.core.BuildConfig;
-
 public class Logs {
 
-	private static final boolean DEBUG        = BuildConfig.DEBUG;
-	private static final boolean UI           = true && DEBUG;
-	private static final boolean RETROFIT     = true && DEBUG;
-	private static final boolean RX           = true && DEBUG;
-	private static final boolean PRESENTER    = true && DEBUG;
-	private static final boolean TOKEN        = true && DEBUG;
-	private static final boolean FCM          = true && DEBUG;
-	private static final boolean ERROR        = true && DEBUG;
-	private static final boolean MODEL        = true && DEBUG;
-	private static final boolean LOGIN        = true && DEBUG;
+	private static final boolean DEBUG     = true;
+	private static final boolean UI        = true && DEBUG;
+	private static final boolean RETROFIT  = true && DEBUG;
+	private static final boolean RX        = true && DEBUG;
+	private static final boolean PRESENTER = true && DEBUG;
+	private static final boolean TOKEN     = true && DEBUG;
+	private static final boolean FCM       = true && DEBUG;
+	private static final boolean ERROR     = true && DEBUG;
+	private static final boolean MODEL     = true && DEBUG;
+	private static final boolean LOGIN     = true && DEBUG;
 	private static final boolean REPOSITORY   = true && DEBUG;
 	private static final String  T_UI         = "UI_CALL";
 	private static final String  T_RETROFIT   = "RETROFIT";
