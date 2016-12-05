@@ -48,19 +48,14 @@ public class LoadingSpinner<T extends SpinnerAdapter> extends FrameLayout {
 		spinner = (Spinner) findViewById(R.id.loading_spinner_spinner);
 		label = (TextView) findViewById(R.id.loading_spinner_label);
 
-		if (TextUtils.isEmpty(mLabel)) {
-			label.setVisibility(GONE);
-		} else {
-			label.setVisibility(VISIBLE);
-			label.setText(mLabel);
-		}
+		setLabel(mLabel);
 
 		initialize();
 	}
 
 	private void setLabelFromAttributeSet(Context context, AttributeSet attrs) {
 		if (attrs != null) {
-			TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BoundedView);
+			TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingSpinner);
 			mLabel = a.getString(R.styleable.LoadingSpinner_ls_label);
 			a.recycle();
 		}
@@ -76,11 +71,13 @@ public class LoadingSpinner<T extends SpinnerAdapter> extends FrameLayout {
 	}
 
 	public void setLabel(@StringRes int stringId) {
-		label.setText(stringId);
+		label.setText(getContext().getString(stringId));
 	}
 
 	public void setLabel(String string) {
 		label.setText(string);
+		if (TextUtils.isEmpty(string)) label.setVisibility(GONE);
+		else label.setVisibility(VISIBLE);
 	}
 
 	public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
