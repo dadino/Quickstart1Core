@@ -20,10 +20,11 @@ public abstract class BaseActivity extends AppCompatActivity implements ISub {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mSubscriptions = new CompositeSubscription();
+		initPresenters();
 		for (ActivityLifecycleListener listener : lifecycleListeners) {
 			listener.onCreate();
 		}
-		mSubscriptions = new CompositeSubscription();
 	}
 
 	@Override

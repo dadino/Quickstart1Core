@@ -1,6 +1,7 @@
 package com.dadino.quickstart.core.adapters;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,11 @@ public abstract class BaseSpinnerAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> 
 
 	protected abstract HOLDER createHolder(View convertView);
 	protected abstract View inflateView(LayoutInflater context, ViewGroup parent);
+
+
+	protected View inflate(ViewGroup parent, @LayoutRes int layoutId) {
+		return inflater(parent.getContext()).inflate(layoutId, parent, false);
+	}
 
 	public class ViewHolder {
 

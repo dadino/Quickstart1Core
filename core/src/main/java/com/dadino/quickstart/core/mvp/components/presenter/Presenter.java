@@ -27,6 +27,7 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 	private boolean mAllowMultipleSubscription = false;
 	private boolean mPublishLoadFinishedOnNext;
 	private boolean mResetItemAfterPublish;
+	private boolean mOverridePublishLoading;
 
 	public Presenter(M model) {
 		this.mModel = model;
@@ -38,6 +39,10 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 
 	public void loadIfNeeded() {
 		if (needsLoad()) load();
+	}
+
+	public boolean needsLoad() {
+		return (mItem == null && !mLoading);
 	}
 
 	public void onDestroy() {
@@ -53,10 +58,6 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 
 	public void removeView(MvpView<E> view) {
 		mMvpViews.remove(view);
-	}
-
-	public boolean needsLoad() {
-		return (mItem == null && !mLoading);
 	}
 
 	public void load(boolean userInitiatedLoad) {
@@ -145,6 +146,14 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 	}
 
 	private void publishLoading(boolean loading) {
+		if (!mOverridePublishLoading) actuallyPublishLoading(loading);
+	}
+
+	public void overridePublishLoading(boolean loading) {
+		actuallyPublishLoading(loading);
+	}
+
+	private void actuallyPublishLoading(boolean loading) {
 		this.mLoading = loading;
 		for (MvpView<E> view : mMvpViews) {
 			publishLoading(view);
@@ -206,5 +215,9 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 
 	public void setResetItemAfterPublish(boolean resetItemAfterPublish) {
 		this.mResetItemAfterPublish = resetItemAfterPublish;
+	}
+
+	public void setOverridePublishLoading(boolean overridePublishLoading) {
+		this.mOverridePublishLoading = overridePublishLoading;
 	}
 }

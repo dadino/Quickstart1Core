@@ -1,6 +1,7 @@
 package com.dadino.quickstart.core.adapters;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,6 +140,11 @@ public abstract class BaseListAdapter<ITEM, HOLDER extends BaseHolder<ITEM>> ext
 		this.items = items;
 		count = NOT_COUNTED;
 		notifyDataSetChanged();
+	}
+
+
+	protected View inflate(ViewGroup parent, @LayoutRes int layoutId) {
+		return inflater(parent.getContext()).inflate(layoutId, parent, false);
 	}
 
 	public interface ClickListener<ITEM> {

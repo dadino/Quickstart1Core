@@ -10,13 +10,13 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.dadino.quickstart.core.R;
+import com.dadino.quickstart.core.adapters.BaseSpinnerAdapter;
 
 
-public class LoadingSpinner<T extends SpinnerAdapter> extends FrameLayout {
+public class LoadingSpinner<T extends BaseSpinnerAdapter> extends FrameLayout {
 
 	protected T           mAdapter;
 	private   ProgressBar progress;
@@ -49,7 +49,7 @@ public class LoadingSpinner<T extends SpinnerAdapter> extends FrameLayout {
 		label = (TextView) findViewById(R.id.loading_spinner_label);
 
 		setLabel(mLabel);
-
+		setOnClickListener(view -> spinner.performClick());
 		initialize();
 	}
 
@@ -109,5 +109,22 @@ public class LoadingSpinner<T extends SpinnerAdapter> extends FrameLayout {
 		if (position == -1) return;
 		if (position == spinner.getSelectedItemPosition()) return;
 		spinner.setSelection(position);
+	}
+
+	public long getSelectedId() {
+		return mAdapter.getItemId(spinner.getSelectedItemPosition());
+	}
+
+	public void setSelectedId(long id) {
+		int wantedPosition = mAdapter.getPosition(id);
+		if (wantedPosition < 0 || wantedPosition == spinner.getSelectedItemPosition()) return;
+		spinner.setSelection(wantedPosition);
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		spinner.setEnabled(enabled);
+		label.setEnabled(enabled);
 	}
 }

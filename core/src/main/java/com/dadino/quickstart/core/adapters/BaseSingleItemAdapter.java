@@ -1,7 +1,9 @@
 package com.dadino.quickstart.core.adapters;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.dadino.quickstart.core.adapters.holders.BaseHolder;
@@ -58,5 +60,9 @@ public abstract class BaseSingleItemAdapter<ITEM, HOLDER extends BaseHolder<ITEM
 		notifyDataSetChanged();
 	}
 
+
+	protected View inflate(ViewGroup parent, @LayoutRes int layoutId) {
+		return inflater(parent.getContext()).inflate(layoutId, parent, false);
+	}
 	protected abstract HOLDER getHolder(ViewGroup parent, int viewType);
 }
