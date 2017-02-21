@@ -39,6 +39,7 @@ public class RecyclerLayout<T extends BaseAdapter, E extends RecyclerView.Layout
 		setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color
 				.colorAccentLight,
 				R.color.colorPrimaryLight);
+		setClipToPadding(false);
 		initialize();
 	}
 
