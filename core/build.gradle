@@ -12,7 +12,7 @@ ext {
     siteUrl = 'https://github.com/dadino/basictoolbox'
     gitUrl = 'https://github.com/dadino/basictoolbox.git'
 
-    libraryVersion = '0.3.13'
+    libraryVersion = '0.3.14'
 
     developerId = 'dadino'
     developerName = 'David Corsalini'
@@ -35,7 +35,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 7
-        versionName "0.3.13"
+        versionName "0.3.14"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
