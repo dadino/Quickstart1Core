@@ -1,5 +1,6 @@
 package com.dadino.quickstart.core.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,8 @@ import android.view.View;
 
 import com.dadino.quickstart.core.App;
 import com.dadino.quickstart.core.interfaces.FragmentLifecycleListener;
+import com.dadino.quickstart.core.interfaces.IBackPressedClient;
+import com.dadino.quickstart.core.interfaces.IBackPressedServer;
 import com.dadino.quickstart.core.interfaces.ISub;
 
 import java.util.ArrayList;
@@ -16,12 +19,18 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 
-public abstract class BaseFragment extends Fragment implements ISub {
+public abstract class BaseFragment extends Fragment implements ISub, IBackPressedClient {
 
 	private CompositeSubscription mSubscriptions;
 	private boolean                         mShouldWatchForLeaks = true;
 	private List<FragmentLifecycleListener> lifecycleListeners   = new ArrayList<>();
 
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		if (context instanceof IBackPressedServer)
+			((IBackPressedServer) context).addBackPressedClient(this);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +97,13 @@ public abstract class BaseFragment extends Fragment implements ISub {
 		}
 	}
 
+	@Override
+	public void onDetach() {
+		if (getContext() instanceof IBackPressedServer)
+			((IBackPressedServer) getContext()).removeBackPressedClient(this);
+		super.onDetach();
+	}
+
 	protected abstract void initPresenters();
 
 	public void shouldWatchForLeaks(boolean watchForLeaks) {
@@ -105,6 +121,11 @@ public abstract class BaseFragment extends Fragment implements ISub {
 
 	public void addLifecycleListener(FragmentLifecycleListener fragmentLifecycleListener) {
 		lifecycleListeners.add(fragmentLifecycleListener);
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		return false;
 	}
 }
 

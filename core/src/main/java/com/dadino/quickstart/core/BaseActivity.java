@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dadino.quickstart.core.interfaces.ActivityLifecycleListener;
+import com.dadino.quickstart.core.interfaces.IBackPressedClient;
+import com.dadino.quickstart.core.interfaces.IBackPressedServer;
 import com.dadino.quickstart.core.interfaces.ISub;
 
 import java.util.ArrayList;
@@ -12,10 +14,11 @@ import java.util.List;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class BaseActivity extends AppCompatActivity implements ISub {
+public abstract class BaseActivity extends AppCompatActivity implements ISub, IBackPressedServer {
 
 	private CompositeSubscription mSubscriptions;
-	private List<ActivityLifecycleListener> lifecycleListeners = new ArrayList<>();
+	private List<IBackPressedClient>        mBackPressedClients = new ArrayList<>();
+	private List<ActivityLifecycleListener> lifecycleListeners  = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,39 @@ public abstract class BaseActivity extends AppCompatActivity implements ISub {
 		   .watch(this);
 	}
 
+	public void addSubscription(Subscription subscription) {
+		mSubscriptions.add(subscription);
+	}
+
+	@Override
+	public void onNewSubscription(Subscription subscription) {
+		addSubscription(subscription);
+	}
+
+	public abstract void initPresenters();
+
+	public void addActivityLifecycleListener(ActivityLifecycleListener activityLifecycleListener) {
+		lifecycleListeners.add(activityLifecycleListener);
+	}
+
+	@Override
+	public void addBackPressedClient(IBackPressedClient client) {
+		mBackPressedClients.add(client);
+	}
+
+	@Override
+	public void removeBackPressedClient(IBackPressedClient client) {
+		mBackPressedClients.remove(client);
+	}
+
+	@Override
+	public void onBackPressed() {
+		for (IBackPressedClient client : mBackPressedClients) {
+			if (client.onBackPressed()) return;
+		}
+		super.onBackPressed();
+	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -69,20 +105,5 @@ public abstract class BaseActivity extends AppCompatActivity implements ISub {
 		for (ActivityLifecycleListener listener : lifecycleListeners) {
 			listener.onResume();
 		}
-	}
-
-	public void addSubscription(Subscription subscription) {
-		mSubscriptions.add(subscription);
-	}
-
-	@Override
-	public void onNewSubscription(Subscription subscription) {
-		addSubscription(subscription);
-	}
-
-	public abstract void initPresenters();
-
-	public void addActivityLifecycleListener(ActivityLifecycleListener activityLifecycleListener) {
-		lifecycleListeners.add(activityLifecycleListener);
 	}
 }
