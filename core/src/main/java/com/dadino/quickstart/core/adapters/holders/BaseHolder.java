@@ -1,5 +1,6 @@
 package com.dadino.quickstart.core.adapters.holders;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -35,13 +36,26 @@ public abstract class BaseHolder<T> extends RecyclerView.ViewHolder implements V
 
 	@Override
 	public void onClick(View v) {
-		if (clickListener != null) clickListener.onClick(v, getLayoutPosition(), false);
+		if (clickListener != null) clickListener.onClick(
+				getClickedView() != null ? getClickedView() : v, getLayoutPosition(), false);
 	}
 
 	@Override
 	public boolean onLongClick(View v) {
-		if (clickListener != null) clickListener.onClick(v, getLayoutPosition(), true);
+		if (clickListener != null) clickListener.onClick(
+				getLongClickedView() != null ? getLongClickedView() : v, getLayoutPosition(),
+				true);
 		return true;
+	}
+
+	@Nullable
+	protected View getClickedView() {
+		return null;
+	}
+
+	@Nullable
+	protected View getLongClickedView() {
+		return null;
 	}
 
 	public interface ClickListener {
