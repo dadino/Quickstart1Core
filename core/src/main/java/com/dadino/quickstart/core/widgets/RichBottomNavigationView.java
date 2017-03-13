@@ -8,13 +8,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.view.menu.MenuView;
@@ -188,25 +184,20 @@ public class RichBottomNavigationView extends BottomNavigationView {
 
 	static class BottomNavigationState extends BaseSavedState {
 
-		public static final Creator<NavigationView.SavedState> CREATOR =
-				ParcelableCompat.newCreator(
-						new ParcelableCompatCreatorCallbacks<NavigationView.SavedState>() {
-							@Override
-							public NavigationView.SavedState createFromParcel(Parcel parcel,
-							                                                  ClassLoader loader) {
-								return new NavigationView.SavedState(parcel, loader);
-							}
+		public static final Parcelable.Creator<BottomNavigationState> CREATOR =
+				new Parcelable.Creator<BottomNavigationState>() {
+					public BottomNavigationState createFromParcel(Parcel in) {
+						return new BottomNavigationState(in);
+					}
 
-							@Override
-							public NavigationView.SavedState[] newArray(int size) {
-								return new NavigationView.SavedState[size];
-							}
-						});
+					public BottomNavigationState[] newArray(int size) {
+						return new BottomNavigationState[size];
+					}
+				};
 		public int lastSelection;
 
-		@RequiresApi(api = Build.VERSION_CODES.N)
-		public BottomNavigationState(Parcel in, ClassLoader loader) {
-			super(in, loader);
+		private BottomNavigationState(Parcel in) {
+			super(in);
 			lastSelection = in.readInt();
 		}
 
