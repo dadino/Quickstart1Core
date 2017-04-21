@@ -73,27 +73,6 @@ public class RichBottomNavigationView extends BottomNavigationView {
 	}
 
 	@Override
-	protected Parcelable onSaveInstanceState() {
-		Parcelable superState = super.onSaveInstanceState();
-		BottomNavigationState state = new BottomNavigationState(superState);
-		mLastSelection = getSelectedItem();
-		state.lastSelection = mLastSelection;
-		return state;
-	}
-
-	@Override
-	protected void onRestoreInstanceState(Parcelable state) {
-		if (!(state instanceof BottomNavigationState)) {
-			super.onRestoreInstanceState(state);
-			return;
-		}
-		BottomNavigationState bottomNavigationState = (BottomNavigationState) state;
-		mLastSelection = bottomNavigationState.lastSelection;
-		dispatchRestoredState();
-		super.onRestoreInstanceState(bottomNavigationState.getSuperState());
-	}
-
-	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
 		if (mShadowDrawable != null && mShadowVisible) {
@@ -110,6 +89,37 @@ public class RichBottomNavigationView extends BottomNavigationView {
 		MarginLayoutParams layoutParams = (MarginLayoutParams) mBottomItemsHolder
 				.getLayoutParams();
 		layoutParams.topMargin = (mShadowElevation + 2) / 2;
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		try {
+			Parcelable superState = super.onSaveInstanceState();
+			BottomNavigationState state = new BottomNavigationState(superState);
+			mLastSelection = getSelectedItem();
+			state.lastSelection = mLastSelection;
+			return state;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return super.onSaveInstanceState();
+		}
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		try {
+			if (!(state instanceof BottomNavigationState)) {
+				super.onRestoreInstanceState(state);
+				return;
+			}
+			BottomNavigationState bottomNavigationState = (BottomNavigationState) state;
+			mLastSelection = bottomNavigationState.lastSelection;
+			dispatchRestoredState();
+			super.onRestoreInstanceState(bottomNavigationState.getSuperState());
+		} catch (Exception e) {
+			e.printStackTrace();
+			super.onRestoreInstanceState(state);
+		}
 	}
 
 	private void updateShadowBounds() {

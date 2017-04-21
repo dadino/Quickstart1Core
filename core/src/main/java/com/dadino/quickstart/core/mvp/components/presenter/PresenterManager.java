@@ -7,7 +7,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
 import com.dadino.quickstart.core.BaseActivity;
-import com.dadino.quickstart.core.fragments.BaseDialogFragment;
 import com.dadino.quickstart.core.fragments.BaseFragment;
 import com.dadino.quickstart.core.interfaces.IPresenter;
 import com.dadino.quickstart.core.interfaces.SimpleActivityLifecycleListener;
@@ -41,7 +40,7 @@ public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implemen
 		this.mvpView = view;
 	}
 
-	public PresenterManager<ITEM, PRESENTER> bindTo(BaseActivity activity) {
+	PresenterManager<ITEM, PRESENTER> bindTo(BaseActivity activity) {
 		activity.getSupportLoaderManager()
 		        .initLoader(factory.id(), null, this);
 		activity.addActivityLifecycleListener(new SimpleActivityLifecycleListener() {
@@ -60,7 +59,7 @@ public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implemen
 		return this;
 	}
 
-	public PresenterManager<ITEM, PRESENTER> bindTo(BaseFragment fragment) {
+	PresenterManager<ITEM, PRESENTER> bindTo(BaseFragment fragment) {
 		fragment.getLoaderManager()
 		        .initLoader(factory.id(), null, this);
 		fragment.addLifecycleListener(new SimpleFragmentLifecycleListener() {
@@ -79,25 +78,6 @@ public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implemen
 		return this;
 	}
 
-	public PresenterManager<ITEM, PRESENTER> bindTo(BaseDialogFragment fragment, MvpView view) {
-		this.mvpView = view;
-		fragment.getLoaderManager()
-		        .initLoader(factory.id(), null, this);
-		fragment.addLifecycleListener(new SimpleFragmentLifecycleListener() {
-			@Override
-			public void onResume() {
-				super.onResume();
-				if (presenter != null) presenter.addView(mvpView);
-			}
-
-			@Override
-			public void onPause() {
-				super.onPause();
-				if (presenter != null) presenter.removeView(mvpView);
-			}
-		});
-		return this;
-	}
 
 	@Override
 	public PresenterLoader onCreateLoader(int id, Bundle arg) {
