@@ -18,16 +18,16 @@ public abstract class DrawerToggleFragment extends BaseFragment {
 	private boolean mShouldSetupDrawerToggle;
 
 	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		setupDrawerToggle(context);
+	}
+
+	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
 		if (mShouldSetupDrawerToggle) setupDrawerToggle(getActivity());
-	}
-
-	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-		setupDrawerToggle(context);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public abstract class DrawerToggleFragment extends BaseFragment {
 		mShouldSetupDrawerToggle = true;
 		if (context instanceof DrawerToggleServer && context instanceof AppCompatActivity &&
 		    toolbar() != null) {
-			Logs.ui("Setting drawer toggle to fragment's toolbar");
+			Logs.ui("Setting drawer toggle to fragment's toolbar", Logs.INFO);
 
 			final DrawerToggleServer server = (DrawerToggleServer) context;
 			final AppCompatActivity activity = (AppCompatActivity) context;
@@ -80,7 +80,7 @@ public abstract class DrawerToggleFragment extends BaseFragment {
 	private void resetDrawerToggle(Context context) {
 		mShouldSetupDrawerToggle = true;
 		if (context instanceof DrawerToggleServer) {
-			Logs.ui("Resetting drawer toggle");
+			Logs.ui("Resetting drawer toggle", Logs.INFO);
 
 			final DrawerToggleServer server = (DrawerToggleServer) context;
 

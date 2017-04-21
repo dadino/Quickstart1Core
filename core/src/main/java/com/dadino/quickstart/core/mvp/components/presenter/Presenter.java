@@ -100,14 +100,14 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 	protected abstract String tag();
 
 	public void onCompleted() {
-		Logs.presenter(tag() + " - Observable onCompleted");
+		Logs.presenter(tag() + " - Observable onCompleted", Logs.INFO);
 		this.mCompleted = true;
 		publishCompleted();
 		publishLoading(false);
 	}
 
 	public void onError(Throwable e) {
-		Logs.presenter(tag() + " - Observable onError: " + e.getMessage());
+		Logs.presenter(tag() + " - Observable onError: " + e.getMessage(), Logs.ERROR);
 		mError = e;
 		publishError();
 		publishLoading(false);
@@ -115,18 +115,18 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 
 	public void onNext(E item) {
 		Logs.presenter(tag() + " - Observable onNext: " +
-		               (item != null ? getItemDescription(item) : "null"));
+		               (item != null ? getItemDescription(item) : "null"), Logs.INFO);
 		this.mItem = item;
 		publishNext();
 		if (mPublishLoadFinishedOnNext) publishLoading(false);
 	}
 
 	private void onNewSubscription(Subscription subscription) {
-		Logs.presenter(tag() + " - New subscription");
+		Logs.presenter(tag() + " - New subscription", Logs.INFO);
 		if (!mAllowMultipleSubscription && mSubscriptions.size() > 0) {
 			final Subscription currentSubscription = mSubscriptions.get(0);
 			if (currentSubscription != null && !currentSubscription.isUnsubscribed()) {
-				Logs.presenter(tag() + " - Unsubscribing from current subscription");
+				Logs.presenter(tag() + " - Unsubscribing from current subscription", Logs.INFO);
 				currentSubscription.unsubscribe();
 			}
 			mSubscriptions.remove(0);

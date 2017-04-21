@@ -81,7 +81,7 @@ public class PresenterManager<ITEM, PRESENTER extends IPresenter<ITEM>> implemen
 
 	@Override
 	public PresenterLoader onCreateLoader(int id, Bundle arg) {
-		Logs.presenter("Creating new Presenter " + factory.tag() + " with ID:" + id);
+		Logs.presenter("Creating new Presenter " + factory.tag() + " with ID:" + id, Logs.INFO);
 		return new PresenterLoader<>(context, factory, factory.tag());
 	}
 
