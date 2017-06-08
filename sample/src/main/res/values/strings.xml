@@ -1,3 +1,4 @@
 <resources>
 	<string name="app_name">BasicToolbox</string>
+	<string name="title_activity_main">MainActivity</string>
 </resources>
