@@ -36,11 +36,11 @@ public class RecyclerLayout<T extends BaseAdapter, E extends RecyclerView.Layout
 		inflate(getContext(), R.layout.view_recycler_layout, this);
 		mList = (RecyclerView) findViewById(R.id.list);
 		mEmptyText = (TextView) findViewById(R.id.empty_text);
-		setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color
-				.colorAccentLight,
+		setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorAccentLight,
 				R.color.colorPrimaryLight);
 		setClipToPadding(false);
 		initialize();
+		updateLoadingState();
 	}
 
 	protected void initialize() {}
@@ -49,9 +49,7 @@ public class RecyclerLayout<T extends BaseAdapter, E extends RecyclerView.Layout
 		this.mLoading = loading;
 		post(() -> {
 			setRefreshing(mLoading);
-
-			//noinspection WrongConstant
-			mEmptyText.setVisibility(mLoading ? INVISIBLE : getEmptyTextVisibility());
+			updateEmptyTextVisibility();
 		});
 	}
 
@@ -59,8 +57,11 @@ public class RecyclerLayout<T extends BaseAdapter, E extends RecyclerView.Layout
 		setListLoading(mLoading);
 	}
 
-	private int getEmptyTextVisibility() {
-		return (mAdapter == null || mAdapter.getItemCount() == 0) ? VISIBLE : INVISIBLE;
+	private void updateEmptyTextVisibility() {
+		final int visibility =
+				((mAdapter != null && mAdapter.getItemCount() != 0) || mLoading) ? INVISIBLE :
+				VISIBLE;
+		mEmptyText.setVisibility(visibility);
 	}
 
 	public void setEmptyText(String text) {

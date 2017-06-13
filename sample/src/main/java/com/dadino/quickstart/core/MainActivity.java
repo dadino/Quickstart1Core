@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.dadino.quickstart.R;
+import com.dadino.quickstart.core.widgets.RecyclerLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,5 +23,8 @@ public class MainActivity extends AppCompatActivity {
 				Snackbar.LENGTH_LONG)
 		                                       .setAction("Action", null)
 		                                       .show());
+
+		RecyclerLayout rl = (RecyclerLayout) findViewById(R.id.sample_list);
+		rl.setEmptyText("Empty Text");
 	}
 }
