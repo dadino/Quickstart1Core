@@ -36,7 +36,7 @@ public class PresenterLoader<T extends IPresenter> extends Loader<T> {
 
 	@Override
 	protected void onReset() {
-		presenter.onDestroy();
+		if (presenter != null) presenter.onDestroy();
 		presenter = null;
 	}
 
