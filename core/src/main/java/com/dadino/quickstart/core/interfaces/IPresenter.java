@@ -5,10 +5,17 @@ import com.dadino.quickstart.core.mvp.components.presenter.MvpView;
 
 public interface IPresenter<T> {
 
-	void load();
-	void loadIfNeeded();
-	boolean needsLoad();
-	void onDestroy();
-	void addView(MvpView<T> view);
-	void removeView(MvpView<T> view);
+    void load();
+
+    void loadIfNeeded();
+
+    boolean needsLoad();
+
+    void onDestroy();
+
+    void addView(MvpView<T> view);
+
+    void removeView(MvpView<T> view);
+
+    boolean hasView(MvpView<T> view);
 }

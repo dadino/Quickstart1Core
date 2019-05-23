@@ -60,6 +60,11 @@ public abstract class Presenter<E, M extends IModel> implements Observer<E>, IPr
 		mMvpViews.remove(view);
 	}
 
+	@Override
+	public boolean hasView(MvpView<E> view) {
+		return mMvpViews.contains(view);
+	}
+
 	public void load(boolean userInitiatedLoad) {
 		loadItems(userInitiatedLoad);
 	}
