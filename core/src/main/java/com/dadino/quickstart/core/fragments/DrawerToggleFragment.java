@@ -3,10 +3,11 @@ package com.dadino.quickstart.core.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.dadino.quickstart.core.R;
 import com.dadino.quickstart.core.interfaces.DrawerToggleServer;

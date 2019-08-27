@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/QuickStart_Core.iml" filepath="$PROJECT_DIR$/QuickStart_Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/Quickstart1Core.iml" filepath="$PROJECT_DIR$/Quickstart1Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />

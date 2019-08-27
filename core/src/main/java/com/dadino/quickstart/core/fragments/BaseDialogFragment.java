@@ -1,8 +1,9 @@
 package com.dadino.quickstart.core.fragments;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.dadino.quickstart.core.App;
 import com.dadino.quickstart.core.interfaces.FragmentLifecycleListener;

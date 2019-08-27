@@ -1,6 +1,6 @@
 package com.dadino.quickstart.core.adapters;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.dadino.quickstart.core.adapters.holders.BaseHolder;
 

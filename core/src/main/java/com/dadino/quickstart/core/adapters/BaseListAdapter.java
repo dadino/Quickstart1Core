@@ -1,11 +1,12 @@
 package com.dadino.quickstart.core.adapters;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 
 import com.dadino.quickstart.core.adapters.holders.BaseHolder;
 import com.dadino.quickstart.core.utils.Logs;

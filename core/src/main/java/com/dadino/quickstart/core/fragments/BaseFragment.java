@@ -2,9 +2,10 @@ package com.dadino.quickstart.core.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.dadino.quickstart.core.App;
 import com.dadino.quickstart.core.interfaces.FragmentLifecycleListener;

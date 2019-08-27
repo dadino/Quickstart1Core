@@ -1,6 +1,6 @@
 package com.dadino.quickstart.core.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dadino.quickstart.core.adapters.holders.BaseHolder;
 

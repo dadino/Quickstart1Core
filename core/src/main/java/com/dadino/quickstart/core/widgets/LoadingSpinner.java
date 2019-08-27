@@ -3,7 +3,6 @@ package com.dadino.quickstart.core.widgets;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.AdapterView;
@@ -11,6 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.StringRes;
 
 import com.dadino.quickstart.core.R;
 import com.dadino.quickstart.core.adapters.BaseSpinnerAdapter;

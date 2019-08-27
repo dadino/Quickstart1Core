@@ -1,7 +1,8 @@
 package com.dadino.quickstart.core.mvp.components.presenter;
 
 import android.content.Context;
-import android.support.v4.content.Loader;
+
+import androidx.loader.content.Loader;
 
 import com.dadino.quickstart.core.interfaces.IPresenter;
 

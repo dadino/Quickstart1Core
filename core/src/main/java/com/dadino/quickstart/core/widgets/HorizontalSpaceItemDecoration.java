@@ -1,8 +1,9 @@
 package com.dadino.quickstart.core.widgets;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 

@@ -1,7 +1,8 @@
 package com.dadino.quickstart.core;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.dadino.quickstart.core.interfaces.ActivityLifecycleListener;
 import com.dadino.quickstart.core.interfaces.IBackPressedClient;
