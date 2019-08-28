@@ -5,62 +5,60 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.ButterKnife;
-
 public abstract class BaseHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener,
-		View.OnLongClickListener {
+        View.OnLongClickListener {
 
-	protected ClickListener clickListener;
+    protected ClickListener clickListener;
 
-	public BaseHolder(View itemView, boolean withClickListener) {
-		super(itemView);
-		if (withClickListener) {
-			itemView.setOnClickListener(this);
-			itemView.setOnLongClickListener(this);
-		}
-		bindView(itemView);
-	}
+    public BaseHolder(View itemView, boolean withClickListener) {
+        super(itemView);
+        if (withClickListener) {
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+        bindView(itemView);
+    }
 
-	public BaseHolder(View itemView) {
-		this(itemView, true);
-	}
+    public BaseHolder(View itemView) {
+        this(itemView, true);
+    }
 
-	public void bindView(View view) {
-		ButterKnife.bind(this, view);
-	}
+    public void bindView(View view) {
 
-	public abstract void bindItem(T item, int position);
+    }
 
-	public void setClickListener(ClickListener clickListener) {
-		this.clickListener = clickListener;
-	}
+    public abstract void bindItem(T item, int position);
 
-	@Override
-	public void onClick(View v) {
-		if (clickListener != null) clickListener.onClick(
-				getClickedView() != null ? getClickedView() : v, getLayoutPosition(), false);
-	}
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
-	@Override
-	public boolean onLongClick(View v) {
-		if (clickListener != null) clickListener.onClick(
-				getLongClickedView() != null ? getLongClickedView() : v, getLayoutPosition(),
-				true);
-		return true;
-	}
+    @Override
+    public void onClick(View v) {
+        if (clickListener != null) clickListener.onClick(
+                getClickedView() != null ? getClickedView() : v, getLayoutPosition(), false);
+    }
 
-	@Nullable
-	protected View getClickedView() {
-		return null;
-	}
+    @Override
+    public boolean onLongClick(View v) {
+        if (clickListener != null) clickListener.onClick(
+                getLongClickedView() != null ? getLongClickedView() : v, getLayoutPosition(),
+                true);
+        return true;
+    }
 
-	@Nullable
-	protected View getLongClickedView() {
-		return null;
-	}
+    @Nullable
+    protected View getClickedView() {
+        return null;
+    }
 
-	public interface ClickListener {
+    @Nullable
+    protected View getLongClickedView() {
+        return null;
+    }
 
-		void onClick(View v, int position, boolean isLongClick);
-	}
+    public interface ClickListener {
+
+        void onClick(View v, int position, boolean isLongClick);
+    }
 }
