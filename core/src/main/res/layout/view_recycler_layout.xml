@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 xmlns:tools="http://schemas.android.com/tools"
-			 android:layout_width="match_parent"
-			 android:layout_height="wrap_content">
+<merge
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	tools:parentTag="androidx.swiperefreshlayout.widget.SwipeRefreshLayout">
 
-    <androidx.recyclerview.widget.RecyclerView
+	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:clipToPadding="false"/>
+		android:clipChildren="false"
+		android:clipToPadding="false"
+		tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 	<TextView
 		android:id="@+id/empty_text"
@@ -16,11 +20,11 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:paddingBottom="24dp"
 		android:paddingLeft="16dp"
-		android:paddingRight="16dp"
 		android:paddingTop="72dp"
+		android:paddingRight="16dp"
+		android:paddingBottom="24dp"
 		android:visibility="invisible"
 		tools:text="Empty Text"
-		tools:visibility="visible"/>
-</FrameLayout>
+		tools:visibility="visible" />
+</merge>

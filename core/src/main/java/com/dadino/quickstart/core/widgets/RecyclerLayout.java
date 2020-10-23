@@ -13,100 +13,105 @@ import com.dadino.quickstart.core.adapters.BaseAdapter;
 
 
 public class RecyclerLayout<T extends BaseAdapter, E extends RecyclerView.LayoutManager> extends
-		SwipeRefreshLayout {
+        SwipeRefreshLayout {
 
-	public    RecyclerView mList;
-	public    TextView     mEmptyText;
-	protected T            mAdapter;
-	protected E            mLayoutManager;
-	private   boolean      mLoading;
-
-
-	public RecyclerLayout(Context context) {
-		super(context);
-		init();
-	}
-
-	public RecyclerLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init();
-	}
+    public RecyclerView mList;
+    public TextView mEmptyText;
+    protected T mAdapter;
+    protected E mLayoutManager;
+    private boolean mLoading;
 
 
-	private void init() {
-		inflate(getContext(), R.layout.view_recycler_layout, this);
-		mList = (RecyclerView) findViewById(R.id.list);
-		mEmptyText = (TextView) findViewById(R.id.empty_text);
-		setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorAccentLight,
-				R.color.colorPrimaryLight);
-		setClipToPadding(false);
-		initialize();
-		updateLoadingState();
-	}
+    public RecyclerLayout(Context context) {
+        super(context);
+        init();
+    }
 
-	protected void initialize() {}
-
-	public void setListLoading(boolean loading) {
-		this.mLoading = loading;
-		post(() -> {
-			setRefreshing(mLoading);
-			updateEmptyTextVisibility();
-		});
-	}
-
-	public void updateLoadingState() {
-		setListLoading(mLoading);
-	}
-
-	private void updateEmptyTextVisibility() {
-		final int visibility =
-				((mAdapter != null && mAdapter.getItemCount() != 0) || mLoading) ? INVISIBLE :
-				VISIBLE;
-		mEmptyText.setVisibility(visibility);
-	}
-
-	public void setEmptyText(String text) {
-		mEmptyText.setText(text);
-	}
-
-	public void setEmptyText(@StringRes int text) {
-		post(() -> mEmptyText.setText(text));
-	}
+    public RecyclerLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
 
 
-	public T getAdapter() {
-		return mAdapter;
-	}
+    private void init() {
+        inflate(getContext(), R.layout.view_recycler_layout, this);
+        mList = (RecyclerView) findViewById(R.id.list);
+        mEmptyText = (TextView) findViewById(R.id.empty_text);
+        setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorAccentLight,
+                R.color.colorPrimaryLight);
+        setClipToPadding(false);
+        initialize();
+        updateLoadingState();
+    }
 
-	public void setAdapter(T adapter) {
-		if (isInEditMode()) return;
-		this.mAdapter = adapter;
-		mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-			@Override
-			public void onChanged() {
-				super.onChanged();
-				updateLoadingState();
-			}
-		});
-		mList.setAdapter(mAdapter);
-		updateLoadingState();
-	}
+    protected void initialize() {
+    }
+
+    public void setListLoading(boolean loading) {
+        this.mLoading = loading;
+        post(() -> {
+            setRefreshing(mLoading);
+            updateEmptyTextVisibility();
+        });
+    }
+
+    public void updateLoadingState() {
+        setListLoading(mLoading);
+    }
+
+    private void updateEmptyTextVisibility() {
+        final int visibility =
+                ((mAdapter != null && mAdapter.getItemCount() != 0) || mLoading) ? INVISIBLE :
+                        VISIBLE;
+        mEmptyText.setVisibility(visibility);
+    }
+
+    public void setEmptyText(String text) {
+        mEmptyText.setText(text);
+    }
+
+    public void setEmptyText(@StringRes int text) {
+        post(() -> mEmptyText.setText(text));
+    }
 
 
-	public void setLayoutManager(E layoutManager) {
-		this.mLayoutManager = layoutManager;
-		mList.setLayoutManager(layoutManager);
-	}
+    public T getAdapter() {
+        return mAdapter;
+    }
 
-	public void setBottomPadding(int paddingInPixel) {
-		mList.setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), paddingInPixel);
-	}
+    public void setAdapter(T adapter) {
+        if (isInEditMode()) return;
+        this.mAdapter = adapter;
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                updateLoadingState();
+            }
+        });
+        mList.setAdapter(mAdapter);
+        updateLoadingState();
+    }
 
-	public void addItemDecoration(RecyclerView.ItemDecoration itemDecorator) {
-		mList.addItemDecoration(itemDecorator);
-	}
 
-	public void setHasFixedSize(boolean hasFixedSize) {
-		mList.setHasFixedSize(hasFixedSize);
-	}
+    public void setLayoutManager(E layoutManager) {
+        this.mLayoutManager = layoutManager;
+        mList.setLayoutManager(layoutManager);
+    }
+
+    public void setBottomPadding(int paddingInPixel) {
+        mList.setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), paddingInPixel);
+    }
+
+    public void setListPadding(int paddingLeft, int paddingTop, int paddingRight, int paddingBottom) {
+        mList.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+    }
+
+    public void addItemDecoration(RecyclerView.ItemDecoration itemDecorator) {
+        mList.addItemDecoration(itemDecorator);
+    }
+
+    public void setHasFixedSize(boolean hasFixedSize) {
+        mList.setHasFixedSize(hasFixedSize);
+    }
 }
