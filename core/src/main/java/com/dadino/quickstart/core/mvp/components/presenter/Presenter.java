@@ -10,13 +10,16 @@ import java.util.List;
 import java.util.Set;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, Consumer<E> {
+public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, Observer<E>, SingleObserver<E> {
 
     private final M mModel;
     protected E mItem;
@@ -74,14 +77,14 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
         mCompleted = false;
         publishLoading(true);
         onNewSubscription(observable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this));
+                .subscribe(this::onNext, this::onError, this::onComplete));
     }
 
     public void beginCustomLoading(Single<E> single) {
         mCompleted = false;
         publishLoading(true);
         onNewSubscription(single.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this));
+                .subscribe(this::onSuccess, this::onError));
     }
 
     public void reset() {
@@ -105,13 +108,15 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
 
     protected abstract String tag();
 
-    public void onCompleted() {
+    @Override
+    public void onComplete() {
         Logs.presenter(tag() + " - Observable onCompleted", Logs.INFO);
         this.mCompleted = true;
         publishCompleted();
         publishLoading(false);
     }
 
+    @Override
     public void onError(Throwable e) {
         Logs.presenter(tag() + " - Observable onError: " + e.getMessage(), Logs.ERROR);
         mError = e;
@@ -119,9 +124,17 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
         publishLoading(false);
     }
 
+    @Override
     public void onNext(E item) {
-        Logs.presenter(tag() + " - Observable onNext: " +
-                (item != null ? getItemDescription(item) : "null"), Logs.INFO);
+        Logs.presenter(tag() + " - Observable onNext: " + getItemDescription(item), Logs.INFO);
+        this.mItem = item;
+        publishNext();
+        if (mPublishLoadFinishedOnNext) publishLoading(false);
+    }
+
+    @Override
+    public void onSuccess(@NonNull E item) {
+        Logs.presenter(tag() + " - Observable onSuccess: " + getItemDescription(item), Logs.INFO);
         this.mItem = item;
         publishNext();
         if (mPublishLoadFinishedOnNext) publishLoading(false);
@@ -170,7 +183,6 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
         if (view != null && view.load != null) view.load.onItemLoad(mLoading);
     }
 
-
     private void publishNext() {
         for (MvpView<E> view : mMvpViews) {
             publishNext(view);
@@ -182,7 +194,6 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
     private void publishNext(MvpView<E> view) {
         if (view != null && view.next != null && mItem != null) view.next.onItemNext(mItem);
     }
-
 
     private void publishError() {
         for (MvpView<E> view : mMvpViews) {
@@ -225,9 +236,5 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
 
     public void setOverridePublishLoading(boolean overridePublishLoading) {
         this.mOverridePublishLoading = overridePublishLoading;
-    }
-
-    @Override
-    public void accept(E e) throws Exception {
     }
 }
