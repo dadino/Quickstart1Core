@@ -226,4 +226,8 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, C
     public void setOverridePublishLoading(boolean overridePublishLoading) {
         this.mOverridePublishLoading = overridePublishLoading;
     }
+
+    @Override
+    public void accept(E e) throws Exception {
+    }
 }
