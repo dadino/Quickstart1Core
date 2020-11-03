@@ -77,15 +77,17 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, O
     public void beginCustomLoading(Observable<E> observable) {
         mCompleted = false;
         publishLoading(true);
-        observable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this);
+        onNewSubscription(observable.observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(this::onSubscribe)
+                .subscribe(this::onNext, this::onError, this::onComplete));
     }
 
     public void beginCustomLoading(Single<E> single) {
         mCompleted = false;
         publishLoading(true);
-        single.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this);
+        onNewSubscription(single.observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(this::onSubscribe)
+                .subscribe(this::onSuccess, this::onError));
     }
 
     public void reset() {
@@ -111,7 +113,6 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, O
 
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-        onNewSubscription(d);
     }
 
     @Override
@@ -143,7 +144,7 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, O
         Logs.presenter(tag() + " - Observable onSuccess: " + getItemDescription(item), Logs.INFO);
         this.mItem = item;
         publishNext();
-        if (mPublishLoadFinishedOnNext) publishLoading(false);
+        publishLoading(false);
     }
 
     private void onNewSubscription(Disposable subscription) {
