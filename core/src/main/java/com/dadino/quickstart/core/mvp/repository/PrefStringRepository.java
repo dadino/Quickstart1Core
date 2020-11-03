@@ -5,9 +5,10 @@ import android.content.Context;
 import com.dadino.quickstart.core.interfaces.IStringRepository;
 import com.dadino.quickstart.core.utils.Logs;
 
-import rx.Observable;
-import rx.Single;
-import rx.subjects.BehaviorSubject;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.subjects.BehaviorSubject;
+
 
 public abstract class PrefStringRepository extends PrefRepository implements IStringRepository {
 
@@ -31,7 +32,7 @@ public abstract class PrefStringRepository extends PrefRepository implements ISt
 	public Observable<String> retrieve() {
 		Logs.model("Retrieving pref: " + getKey());
 		if (subject == null) {
-			subject = BehaviorSubject.create(getPref());
+			subject = BehaviorSubject.create();
 			subject.onNext(getPref());
 		}
 		return subject;

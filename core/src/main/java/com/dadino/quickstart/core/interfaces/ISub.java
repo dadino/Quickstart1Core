@@ -1,8 +1,9 @@
 package com.dadino.quickstart.core.interfaces;
 
-import rx.Subscription;
+
+import io.reactivex.disposables.Disposable;
 
 public interface ISub {
 
-	void onNewSubscription(Subscription subscription);
+    void onNewSubscription(Disposable subscription);
 }

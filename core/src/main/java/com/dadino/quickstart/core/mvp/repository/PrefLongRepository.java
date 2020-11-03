@@ -5,9 +5,10 @@ import android.content.Context;
 import com.dadino.quickstart.core.interfaces.ILongRepository;
 import com.dadino.quickstart.core.utils.Logs;
 
-import rx.Observable;
-import rx.Single;
-import rx.subjects.BehaviorSubject;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.subjects.BehaviorSubject;
+
 
 public abstract class PrefLongRepository extends PrefRepository implements ILongRepository {
 
@@ -32,7 +33,7 @@ public abstract class PrefLongRepository extends PrefRepository implements ILong
 	public Observable<Long> retrieve() {
 		Logs.model("Retrieving pref: " + getKey());
 		if (subject == null) {
-			subject = BehaviorSubject.create(getPref());
+			subject = BehaviorSubject.create();
 			subject.onNext(getPref());
 		}
 		return subject;

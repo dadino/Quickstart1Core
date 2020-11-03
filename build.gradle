@@ -30,8 +30,8 @@ ext {
     targetSdk = 28
 
     userOrg = "dadino"
-    repoName = "quickstart"
-    groupId = "com.dadino.quickstart"
+    repoName = "quickstart.rxjava2"
+    groupId = "com.dadino.quickstart.rxjava2"
     website = "https://github.com/dadino/basictoolbox"
     descr = "Basic toolbox to quickly start coding"
     bintrayUser = 'dadino'
