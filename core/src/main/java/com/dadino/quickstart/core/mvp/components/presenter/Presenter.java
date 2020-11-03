@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Single;
@@ -76,15 +77,15 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, O
     public void beginCustomLoading(Observable<E> observable) {
         mCompleted = false;
         publishLoading(true);
-        onNewSubscription(observable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onNext, this::onError, this::onComplete));
+        observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this);
     }
 
     public void beginCustomLoading(Single<E> single) {
         mCompleted = false;
         publishLoading(true);
-        onNewSubscription(single.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onSuccess, this::onError));
+        single.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this);
     }
 
     public void reset() {
@@ -107,6 +108,11 @@ public abstract class Presenter<E, M extends IModel> implements IPresenter<E>, O
     }
 
     protected abstract String tag();
+
+    @Override
+    public void onSubscribe(@NonNull Disposable d) {
+        onNewSubscription(d);
+    }
 
     @Override
     public void onComplete() {
