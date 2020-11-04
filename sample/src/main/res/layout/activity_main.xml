@@ -7,32 +7,34 @@
 	android:layout_height="match_parent"
 	tools:context="com.dadino.quickstart.core.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+	<com.google.android.material.appbar.AppBarLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:theme="@style/AppTheme.AppBarOverlay">
+		android:theme="@style/AppTheme.AppBarOverlay"
+		app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior">
 
-        <androidx.appcompat.widget.Toolbar
+		<androidx.appcompat.widget.Toolbar
 			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
 			android:layout_height="?attr/actionBarSize"
 			android:background="?attr/colorPrimary"
-			app:popupTheme="@style/AppTheme.PopupOverlay"/>
+			app:layout_scrollFlags="scroll"
+			app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+	</com.google.android.material.appbar.AppBarLayout>
 
 	<com.dadino.quickstart.core.widgets.RecyclerLayout
 		android:id="@+id/sample_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+		app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:id="@+id/fab"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="bottom|end"
 		android:layout_margin="@dimen/fab_margin"
-		app:srcCompat="@android:drawable/ic_dialog_email"/>
+		app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

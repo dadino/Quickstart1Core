@@ -6,14 +6,13 @@ import android.widget.TextView;
 
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dadino.quickstart.core.R;
 import com.dadino.quickstart.core.adapters.BaseAdapter;
 
 
 public class RecyclerLayout<T extends BaseAdapter, E extends RecyclerView.LayoutManager> extends
-        SwipeRefreshLayout {
+        SwipeRefreshLayoutWithEmpty {
 
     public RecyclerView mList;
     public TextView mEmptyText;
