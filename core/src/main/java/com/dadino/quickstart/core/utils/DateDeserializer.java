@@ -31,8 +31,7 @@ public class DateDeserializer implements JsonDeserializer<Date> {
         for (String format : dateFormats) {
             try {
                 return new SimpleDateFormat(format, Locale.US).parse(jsonElement.getAsString());
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
         }
         throw new JsonParseException(

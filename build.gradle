@@ -38,7 +38,7 @@ ext {
     bintrayKey = 'e23c567c5d38bdae821f0b74e855b07b37487762'
 
     versionCode = 21
-    versionName = "0.6.9"
+    versionName = "0.6.10"
 
     // ./gradlew clean build bintrayUpload -PdryRun=false
 }
