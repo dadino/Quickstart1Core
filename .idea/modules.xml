@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Quickstart1Core.iml" filepath="$PROJECT_DIR$/.idea/modules/Quickstart1Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/quickstart.core.iml" filepath="$PROJECT_DIR$/.idea/modules/quickstart.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/quickstart.core.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/quickstart.core.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/quickstart.core.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/quickstart.core.sample.iml" />
