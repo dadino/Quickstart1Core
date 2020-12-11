@@ -4,7 +4,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
 
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
@@ -37,8 +37,8 @@ ext {
     bintrayUser = 'dadino'
     bintrayKey = 'e23c567c5d38bdae821f0b74e855b07b37487762'
 
-    versionCode = 22
-    versionName = "0.6.11"
+    versionCode = 23
+    versionName = "0.6.12"
 
     // ./gradlew clean build bintrayUpload -PdryRun=false
 }
