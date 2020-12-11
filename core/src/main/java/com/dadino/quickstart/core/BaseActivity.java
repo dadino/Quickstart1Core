@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dadino.quickstart.core.interfaces.ActivityLifecycleListener;
-import com.dadino.quickstart.core.interfaces.IBackPressedClient;
-import com.dadino.quickstart.core.interfaces.IBackPressedServer;
 import com.dadino.quickstart.core.interfaces.ISub;
 
 import java.util.ArrayList;
@@ -16,10 +14,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements ISub, IBackPressedServer {
+public abstract class BaseActivity extends AppCompatActivity implements ISub {
 
     private CompositeDisposable mSubscriptions;
-    private List<IBackPressedClient> mBackPressedClients = new ArrayList<>();
     private List<ActivityLifecycleListener> lifecycleListeners = new ArrayList<>();
 
     @Override
@@ -70,24 +67,6 @@ public abstract class BaseActivity extends AppCompatActivity implements ISub, IB
 
     public void addActivityLifecycleListener(ActivityLifecycleListener activityLifecycleListener) {
         lifecycleListeners.add(activityLifecycleListener);
-    }
-
-    @Override
-    public void addBackPressedClient(IBackPressedClient client) {
-        mBackPressedClients.add(client);
-    }
-
-    @Override
-    public void removeBackPressedClient(IBackPressedClient client) {
-        mBackPressedClients.remove(client);
-    }
-
-    @Override
-    public void onBackPressed() {
-        for (IBackPressedClient client : mBackPressedClients) {
-            if (client.onBackPressed()) return;
-        }
-        super.onBackPressed();
     }
 
     @Override
