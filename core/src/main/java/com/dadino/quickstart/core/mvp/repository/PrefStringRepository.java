@@ -3,16 +3,16 @@ package com.dadino.quickstart.core.mvp.repository;
 import android.content.Context;
 
 import com.dadino.quickstart.core.interfaces.IStringRepository;
+import com.dadino.quickstart.core.mvp.components.Optional;
 import com.dadino.quickstart.core.utils.Logs;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.subjects.BehaviorSubject;
 
-
 public abstract class PrefStringRepository extends PrefRepository implements IStringRepository {
 
-	private BehaviorSubject<String> subject;
+	private BehaviorSubject<Optional<String>> subject;
 
 	public PrefStringRepository(Context context) {
 		super(context);
@@ -29,7 +29,7 @@ public abstract class PrefStringRepository extends PrefRepository implements ISt
 	}
 
 	@Override
-	public Observable<String> retrieve() {
+	public Observable<Optional<String>> retrieve() {
 		Logs.model("Retrieving pref: " + getKey());
 		if (subject == null) {
 			subject = BehaviorSubject.create();
@@ -41,13 +41,13 @@ public abstract class PrefStringRepository extends PrefRepository implements ISt
 	@Override
 	public Single<Boolean> create(String string) {
 		return Single.just(editor().putString(getKey(), string)
-		                           .commit());
+				.commit());
 	}
 
 	@Override
 	public Single<Boolean> delete() {
 		return Single.just(editor().remove(getKey())
-		                           .commit());
+				.commit());
 	}
 
 	@Override
@@ -55,7 +55,9 @@ public abstract class PrefStringRepository extends PrefRepository implements ISt
 		return create(string);
 	}
 
-	private String getPref() {return pref().getString(getKey(), getDefault());}
+	private Optional<String> getPref() {
+		return new Optional<>(pref().getString(getKey(), getDefault()));
+	}
 
 	protected abstract String getDefault();
 }
