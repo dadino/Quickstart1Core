@@ -14,16 +14,16 @@ import com.dadino.quickstart.core.mvp.exceptions.InvalidPresenterException;
 
 public class PresenterBuilder<ITEM, PRESENTER extends IPresenter<ITEM>> {
 
-	private BaseFragment                                  fragment;
-	private BaseActivity                                  activity;
+	private BaseFragment fragment;
+	private BaseActivity activity;
 	private PresenterManager.PresenterCallback<PRESENTER> callback;
-	private PresenterFactory<PRESENTER>                   factory;
-	private MvpView<ITEM>                                 mvpView;
-	private INext<ITEM>                                   onNext;
-	private ICompleted                                    onCompleted;
-	private IError                                        onError;
-	private ILoad                                         onLoad;
-	private ISub                                          onSub;
+	private PresenterFactory<PRESENTER> factory;
+	private MvpView<ITEM> mvpView;
+	private INext<ITEM> onNext;
+	private ICompleted onCompleted;
+	private IError onError;
+	private ILoad onLoad;
+	private ISub onSub;
 
 	public PresenterBuilder() {
 
@@ -86,8 +86,7 @@ public class PresenterBuilder<ITEM, PRESENTER extends IPresenter<ITEM>> {
 		if (factory == null) throw new InvalidPresenterException("Factory not found");
 
 		final MvpView<ITEM> buildMvpView = mvpView != null ? mvpView : mvpView();
-		PresenterManager<ITEM, PRESENTER> m = new PresenterManager<>(context(), factory, callback,
-				buildMvpView);
+		PresenterManager<ITEM, PRESENTER> m = new PresenterManager<>(context(), factory, callback, buildMvpView);
 		if (activity != null) m.bindTo(activity);
 		if (fragment != null) m.bindTo(fragment);
 		return m;
@@ -96,14 +95,14 @@ public class PresenterBuilder<ITEM, PRESENTER extends IPresenter<ITEM>> {
 	private MvpView<ITEM> mvpView() {
 		if (mvpView != null) return mvpView;
 		if (onNext != null || onError != null || onSub != null || onCompleted != null ||
-		    onLoad != null) return new MvpView<>(onNext, onCompleted, onError, onLoad, onSub);
+				onLoad != null) return new MvpView<>(onNext, onCompleted, onError, onLoad, onSub);
 		return null;
 	}
 
 	private Context context() {
 		if (activity != null) return activity.getApplicationContext();
 		if (fragment.getActivity() != null) return fragment.getActivity()
-		                                                   .getApplicationContext();
+				.getApplicationContext();
 		throw new InvalidPresenterException("Context not found");
 	}
 }
