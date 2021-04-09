@@ -1,10 +1,14 @@
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
         google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.0-beta06'
+        classpath "io.github.gradle-nexus:publish-plugin:1.0.0"
     }
 }
 
@@ -32,7 +36,7 @@ ext {
 
     ossrhUsername = System.properties['ossrhUsername']
     ossrhPassword = System.properties['ossrhPassword']
-    sonatypeStagingProfileId = ''
+    sonatypeStagingProfileId = System.properties['sonatypeStagingProfileId']
 
     // ./gradlew clean build bintrayUpload -PdryRun=false
 }

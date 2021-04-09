@@ -53,6 +53,12 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com/dadino/Quickstart1Core.git'
                     url = 'https://github.com/dadino/Quickstart1Core/tree/main'
                 }
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
 
                 withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
@@ -87,6 +93,21 @@ task printProps {
         println "Key File ${System.properties['signing.secretKeyRingFile']}"
         println "ext OSSRH Username ${rootProject.ext.ossrhUsername}"
         println "ext OSSRH Password ${rootProject.ext.ossrhPassword}"
+    }
+}
+
+nexusPublishing {
+    packageGroup = PUBLISH_GROUP_ID
+
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+
+            username = rootProject.ext.ossrhUsername
+            password = rootProject.ext.ossrhPassword
+            stagingProfileId = rootProject.ext.sonatypeStagingProfileId
+        }
     }
 }
 
