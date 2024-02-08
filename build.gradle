@@ -2,20 +2,24 @@ apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 buildscript {
     repositories {
-        jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
+        mavenCentral()
+        mavenLocal()
         google()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0-beta06'
+        classpath 'com.android.tools.build:gradle:8.2.2'
         classpath "io.github.gradle-nexus:publish-plugin:1.0.0"
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
+        mavenLocal()
         google()
+        jcenter()
     }
 }
 
@@ -24,15 +28,15 @@ task clean(type: Delete) {
 }
 
 ext {
-    compileSdk = 28
+    compileSdk = 34
     minSdk = 21
-    targetSdk = 28
+    targetSdk = 34
 
     groupId = "io.github.dadino"
     artifactId = "quickstart-rxjava2-core"
 
-    versionCode = 24
-    versionName = "0.6.14"
+    versionCode = 25
+    versionName = "0.7.0"
 
     ossrhUsername = System.properties['ossrhUsername']
     ossrhPassword = System.properties['ossrhPassword']

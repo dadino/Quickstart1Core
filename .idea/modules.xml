@@ -4,7 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Quickstart1Core.iml" filepath="$PROJECT_DIR$/.idea/modules/Quickstart1Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Quickstart1Core.core.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/Quickstart1Core.sample.unitTest.iml" />
     </modules>
   </component>
 </project>
